@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Page</title>
+    <link rel="stylesheet" href="/css/Signup.css">
+    <link rel="icon" type="image/png" href="/images/dragon.png">
+</head>
+<body>
+    <div class="main-container">
+        <div class="image-container">
+            <img src="/images/dragonShoe.png" alt="Dragon Shoes">
+        </div>
+        <div class="form-container">
+            <h2>Signup</h2>
+            <form th:action="@{/user/signup}" th:object="${user}" method="post">
+                <div class="form-control">
+                    <input required type="text" th:field="*{name}" />
+                    <label>
+                        <span style="transition-delay:350ms">N</span>
+                        <span style="transition-delay:300ms">a</span>
+                        <span style="transition-delay:250ms">m</span>
+                        <span style="transition-delay:200ms">e</span>
+                    </label>
+                </div>
+                <div class="form-control">
+                    <input required type="email" th:field="*{email}" />
+                    <label>
+                        <span style="transition-delay:350ms">E</span>
+                        <span style="transition-delay:300ms">m</span>
+                        <span style="transition-delay:250ms">a</span>
+                        <span style="transition-delay:200ms">i</span>
+                        <span style="transition-delay:150ms">l</span>
+                    </label>
+                </div>
+                <div class="form-control">
+                    <input required type="tel" th:field="*{phoneNumber}" />
+                    <label>
+                        <span style="transition-delay:350ms">P</span>
+                        <span style="transition-delay:300ms">h</span>
+                        <span style="transition-delay:250ms">o</span>
+                        <span style="transition-delay:200ms">n</span>
+                        <span style="transition-delay:150ms">e</span>
+                    </label>
+                </div>
+                <div class="form-control password-container">
+                    <input required type="password" th:field="*{password}" id="password" />
+                    <label>
+                        <span style="transition-delay:350ms">P</span>
+                        <span style="transition-delay:300ms">a</span>
+                        <span style="transition-delay:250ms">s</span>
+                        <span style="transition-delay:200ms">s</span>
+                        <span style="transition-delay:150ms">w</span>
+                        <span style="transition-delay:100ms">o</span>
+                        <span style="transition-delay:50ms">r</span>
+                        <span style="transition-delay:0ms">d</span>
+                    </label>
+                    <span class="eye-icon" onclick="togglePassword()">
+                        <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                            <path class="eye-open" d="M12 4.5C7.31 4.5 3.22 7.11 1.25 11c1.97 3.89 6.06 6.5 10.75 6.5s8.78-2.61 10.75-6.5C20.78 7.11 16.69 4.5 12 4.5zM12 15c-1.38 0-2.5-1.12-2.5-2.5S10.62 10 12 10s2.5 1.12 2.5 2.5S13.38 15 12 15zm0-8.5c-4.14 0-7.72 2.09-9.75 5.25C4.28 13.91 7.86 16 12 16s7.72-2.09 9.75-5.25C19.72 8.09 16.14 6 12 6z"/><circle class="eye-pupil" cx="12" cy="12.5" r="2.5"/>
+                            <path class="eye-close" style="display:none;" d="M12 6c4.14 0 7.72 2.09 9.75 5.25C19.72 13.91 16.14 16 12 16s-7.72-2.09-9.75-5.25C4.28 8.09 7.86 6 12 6z"/><line class="eye-close" style="display:none;" x1="1" y1="1" x2="23" y2="23" stroke="#000" stroke-width="2"/>
+                        </svg>
+                    </span>
+                </div>
+                <button type="submit">
+                    <span class="box">
+                        Signup
+                    </span>
+                </button>
+            </form>
+            <p>Already have an account? <a th:href="@{/user/login}">Login here</a></p>
+        </div>
+    </div>
+
+    <script>
+        function togglePassword() {
+            const passwordField = document.getElementById('password');
+            const eyeIcon = document.getElementById('eye-icon');
+            const eyeOpen = eyeIcon.querySelector('.eye-open');
+            const eyeClose = eyeIcon.querySelector('.eye-close');
+
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                eyeOpen.style.display = 'none';
+                eyeClose.style.display = 'block';
+            } else {
+                passwordField.type = 'password';
+                eyeOpen.style.display = 'block';
+                eyeClose.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

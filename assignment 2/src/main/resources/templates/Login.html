@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" th:href="@{/css/Login.css}">
+</head>
+<body>
+    <div class="main-container">
+        <div class="image-container">
+            <img src="/images/dragonShoe.png" alt="Dragon Shoes">
+        </div>
+        <div class="form-container">
+            <h2>Login</h2>
+            <form th:action="@{/login}" th:object="${user}" method="post">
+                <div class="form-control">
+                    <input required type="email" th:field="*{email}" />
+                    <label>
+                        <span style="transition-delay:350ms">E</span>
+                        <span style="transition-delay:300ms">m</span>
+                        <span style="transition-delay:250ms">a</span>
+                        <span style="transition-delay:200ms">i</span>
+                        <span style="transition-delay:150ms">l</span>
+                    </label>
+                </div>
+                <div class="form-control password-container">
+                    <input required type="password" th:field="*{password}" id="password-login" />
+                    <label>
+                        <span style="transition-delay:350ms">P</span>
+                        <span style="transition-delay:300ms">a</span>
+                        <span style="transition-delay:250ms">s</span>
+                        <span style="transition-delay:200ms">s</span>
+                        <span style="transition-delay:150ms">w</span>
+                        <span style="transition-delay:100ms">o</span>
+                        <span style="transition-delay:50ms">r</span>
+                        <span style="transition-delay:0ms">d</span>
+                    </label>
+                    <span class="eye-icon" onclick="togglePassword()">
+                        <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                            <path class="eye-open" d="M12 4.5C7.31 4.5 3.22 7.11 1.25 11c1.97 3.89 6.06 6.5 10.75 6.5s8.78-2.61 10.75-6.5C20.78 7.11 16.69 4.5 12 4.5zM12 15c-1.38 0-2.5-1.12-2.5-2.5S10.62 10 12 10s2.5 1.12 2.5 2.5S13.38 15 12 15zm0-8.5c-4.14 0-7.72 2.09-9.75 5.25C4.28 13.91 7.86 16 12 16s7.72-2.09 9.75-5.25C19.72 8.09 16.14 6 12 6z"/><circle class="eye-pupil" cx="12" cy="12.5" r="2.5"/>
+                            <path class="eye-close" style="display:none;" d="M12 6c4.14 0 7.72 2.09 9.75 5.25C19.72 13.91 16.14 16 12 16s-7.72-2.09-9.75-5.25C4.28 8.09 7.86 6 12 6z"/><line class="eye-close" style="display:none;" x1="1" y1="1" x2="23" y2="23" stroke="#000" stroke-width="2"/>
+                        </svg>
+                    </span>
+                </div>
+                <button type="submit">
+                    <span class="box">
+                        Login
+                    </span>
+                </button>
+            </form>
+            <p th:if="${error != null}" style="color:red;" id="error-message">Invalid username or password</p>
+            <p>Don't have an account? <a th:href="@{/user/signup}">Signup here</a></p>
+        </div>
+    </div>
+
+    <script>
+        function togglePassword() {
+            const passwordField = document.getElementById('password-login');
+            const eyeIcon = document.getElementById('eye-icon');
+            const eyeOpen = eyeIcon.querySelector('.eye-open');
+            const eyeClose = eyeIcon.querySelector('.eye-close');
+
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                eyeOpen.style.display = 'none';
+                eyeClose.style.display = 'block';
+            } else {
+                passwordField.type = 'password';
+                eyeOpen.style.display = 'block';
+                eyeClose.style.display = 'none';
+            }
+        }
+
+        // Display error message if there is an error parameter in the URL
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('error')) {
+                document.getElementById('error-message').hidden = false;
+            }
+        }
+    </script>
+</body>
+</html>

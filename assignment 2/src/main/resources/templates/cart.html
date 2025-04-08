@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-left">
+                <a th:href="@{/home}"><img src="/images/dragon.png" alt="Dragon Logo" class="logo"></a>
+            </div>
+            <div class="nav-center">
+                <h1 class="page-title">Shopping Cart</h1>
+            </div>
+            <div class="nav-right">
+                <ul>
+                    <li><a th:href="@{/about}">About Us</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="cart-container">
+            <h2>Your Cart</h2>
+            <form th:action="@{/checkout}" method="post">
+                <ul id="cartItems">
+                    <li th:each="order : ${cartItems}" th:data-order-id="${order.orderId}">
+                        <span th:text="${order.shoe.brand} + ' ' + ${order.shoe.name} + ' - $' + ${order.totalPrice} + ' (x' + ${order.quantity} + ')'"></span>
+                        <input type="hidden" name="orderIds" th:value="${order.orderId}">
+                        <button type="button" class="remove-button" onclick="removeItem([[${order.orderId}]])">Remove</button>
+                    </li>
+                </ul>
+                <h3>Total: $<span id="totalAmount" th:text="${totalAmount}">0.00</span></h3>
+                <button class="proceed-button" type="submit">Proceed to Checkout</button>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2023 Dragon Shoes. All rights reserved.</p>
+    </footer>
+    
+</body>
+</html>
